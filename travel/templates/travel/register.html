@@ -1,0 +1,34 @@
+{% extends 'travel/layout.html' %}
+{% load static %}
+{% block body %}
+
+{% if message %}
+    <div class="alert alert-warning" role="alert">
+        {{message}}
+      </div>
+{% endif %}
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="container mt-5" id="register" >
+            <h1 class="text-center mb-3">Register</h1>
+            <form action="{% url 'register' %}" method="post">
+                {% csrf_token %}
+                <input type="text" name="username" class="form-control mb-3" placeholder="Username" required>
+                <input type="email" name="email" class="form-control mb-3" placeholder="Email" required>   
+                <input type="password" name="password" class="form-control mb-3" placeholder="Password" required>
+                <input type="password" name="cpassword" class="form-control mb-3" placeholder="Confirm_password" required>
+                <input type="submit" class="btn btn-primary mb-3" >
+                </form>
+            <span class="text-muted">If you have already account   <a href="{% url 'login' %}" >login</a></span>
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,184 @@
+{% extends 'travel/layout.html' %}
+{% load static %}
+{% block body %}
+
+
+<div class="container mt-5 p-4">
+    <h1>Welcome</h1>
+    <div class="row mt-3">
+        <div class="col-md-4 mt-3">
+            <span>
+                Username
+            </span>
+            <br>
+            <b>
+                {{request.user.username}}
+            </b>
+        </div>
+        <div class="col-md-4 mt-3">
+            <span>
+                Account Email
+            </span>
+            <br>
+            <b>
+                {{request.user.email}}
+            </b>
+        </div>
+        <div class="col-md-4 mt-3">
+            <a href="{% url 'delete' request.user.id %}" class="btn btn-outline-danger">Delete account</a>
+        </div>
+    </div>
+   
+
+</div>
+
+<div class="container p-4">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Dashboard</a>       
+          <a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Notification</a>
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active p-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <h3 class="mt-5">Booking Flights</h3>
+            <table class="table mt-5">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">CityFrom</th>
+                    <th scope="col">Stop Airport</th>
+                    <th scope="col">CityTo</th>
+                    <th scope="col">Duration</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Passengers</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for i in flights %}  
+                  <tr>
+                    <th>{{i.flight.name}}</th>
+                    <td>{{i.flight.cityfrom.code}}</td>
+
+                    <td>
+                        1 stop
+                        <br>
+                        DOH
+                    </td>
+                    <td>{{i.flight.cityto.code}}</td>
+
+                    <td>{{i.flight.duration}} min</td>
+                    <td>${{i.flight.price}}</td>
+                    <td>{{i.passengers}}</td>
+                  </tr>
+                  {% empty %}
+                  <tr class="mt-5">
+                        <h3 class="mt-5">Currently No Flights Booking <a href="{% url 'home' %}">Search Flights</a> </h3>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+     
+            
+            
+        </div>
+        <div class="tab-pane fade p-5" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <div class="row">
+                <div class="col-md-7">
+                    <h3 class="mt-3">Price Alerts</h3>
+                    <p class="text-muted mt-3">
+                        Monitor prices and saved results from flights, hotels and more. Create a Price Alert below to get started, or look for the  to save results while you search.
+                    </p>
+                    <button class="btn btn-outline-primary mt-3 mb-5" data-toggle="modal" data-target="#exampleModal3">Create a Price Alert</button>
+                    <br>
+                    <span class="mt-5">
+                        Email(all alerts) --
+                    </span>
+                    <b>
+                        {{request.user.email}}
+                    </b>
+                </div>
+                <div class="col-md-5">
+                    <img src="{% static 'mail1.png' %}" class="mail">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="mt-5">Your Price alerts</h3>
+                    
+                    <div class="card-body">
+                        <ul>
+                            {% for i in alerts %}
+                            <li>
+                                <b>{{i.alertcityfrom.city}}<span class="text-muted ml-2 mr-2" style="font-weight: normal;">To</span>{{i.alertcityto.city}}</b> 
+                                <a href="{% url 'alertdelete' i.id %}" style="color: red;" class="ml-3">delete</a>
+                            </li>
+                            {% empty %}
+                            <li>
+                                <h5 class="mt-5">Currently no Price Alert</h3>
+                             </li>
+                            {% endfor %}
+                        </ul>                          
+                    </div>
+                 
+            </div>
+        </div>
+      </div>
+</div>
+</div>
+
+
+
+<div class="footer p-5">
+    <div class="container text-center ">
+    <span>
+        @Copyright FLY is part of Booking Flights Inc.,
+    </span>
+    </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Flight Price Alert</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+            <form action="{% url 'alert' %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-5">                   
+                          <select name="cityfrom" id="" class="form-control mt-3">
+                            <option disabled selected>From?</option>
+                            {% for airport in airports %}
+                            <option value="{{airport.id}}">{{airport.city}}</option>
+                            {% endfor %}
+                        </select>
+                     
+                    </div>
+                    <div class="col-md-2 ">
+                        <br>                 
+                        <i class="bi bi-signpost-2-fill  text-center"></i>
+                    </div>
+                    <div class="col-md-5">
+                          <select name="cityto" id="" class="form-control  mt-3">
+                            <option disabled selected>To?</option>
+                            {% for airport in airports %}
+                            <option value="{{airport.id}}">{{airport.city}}</option>
+                            {% endfor %}              
+                        </select>
+                       
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-primary mt-3" value="Create Price Alert">
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

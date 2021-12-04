@@ -1,0 +1,153 @@
+{% extends 'travel/layout.html' %}
+{% load static %}
+{% block body %}
+
+
+
+<div class="main">
+    <h1 class="text-center mt-5 mb-4">Detail Flight</h1>
+    <div class="container">
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+            <form class="form-inline p-2" action="{% url 'search' %}" method="post">
+                {% csrf_token %}
+                <input type="radio" name="tripType" value="oneway" id="oneway"  class="mr-2 mb-3"  checked>
+                <label class="form-check-label mb-3" for="exampleRadios1"  >
+                    OneWay
+                  </label>
+                  <input type="radio" name="tripType" value="round" id="round" class="mr-2 ml-3 mb-3">
+                  <label class="form-check-label mb-3" for="exampleRadios1" >
+                      RoundTrip
+                  </label>         
+                <select name="cityfrom" id="" class="form-control ml-3 mb-3">
+                    <option disabled selected>From?</option>
+                    {% for airport in airports %}
+                    <option value="{{airport.id}}">{{airport.city}}</option>
+                    {% endfor %}
+                </select>
+                <input type="date" class="form-control ml-3 mb-3" name="departuredate">
+                <select name="cityto" id="" class="form-control ml-3 mb-3 ">
+                    <option disabled selected>To?</option>
+                    {% for airport in airports %}
+                    <option value="{{airport.id}}">{{airport.city}}</option>
+                    {% endfor %}
+                </select>
+                <input type="date" class="form-control mb-3 ml-3 " id="todate" disabled  >
+                <input type="submit" value="search" class="btn btn-primary ml-3 mb-3">
+            </form>
+            </div>
+          </div>
+          {% if flight %}
+        <div class="row">
+                  
+            <div class="col-md-8">
+         
+                <div class="card mt-5 mb-5 tablecard">
+                    <div class="card-body">   
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <b style="font-size: 23px;">Your trip to {{flight.cityto.city}}</b>
+                            </div>
+                            <div class="col-md-6" style="text-align: right;">
+                                <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                    Change Flight
+                                  </button>
+                                  
+                              
+                            </div>
+                           
+                         
+                           </div>                    
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <b>Qatar Airways</b>
+                            </div>
+                            <div class="col-md-6" style="text-align: right;">
+                                <b style="text-align: right;" class="text-muted">{{flight.departuredate}}</b>
+                            </div>
+                           
+                         
+                           </div>      
+                            <div class="row">
+                            
+                                <div class="col-md-4 ">
+                                    <b>{{flight.cityfrom.code}}</b>
+                                    <span class="text-muted tabletext">
+                                        {{flight.departuredate}}
+                                        <br>
+                                        {{flight.cityfrom.city}}({{flight.cityfrom.code}}) 
+                    
+                                    </span>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <b>1 stop</b>
+                                    <span class="text-muted tabletext">DOH</span>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <b>{{flight.cityto.code}}</b>
+                                    <span  class="text-muted tabletext">                               
+                                        {{flight.departuredate}}
+                                    <br>
+                                    {{flight.cityto.city}}({{flight.cityto.code}}) 
+                                    </span>
+                                </div>
+                        
+                             
+                            </div>               
+                    </div>         
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mt-5 mb-5 tablecard">
+                    
+                        <div class="card-body">
+                            <b>Passengers</b>
+                            <br>
+                            <form class="form-inline" action="{% url 'detail' flight.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="number" name="passengers" id="passengers" value="1" class="form-control mt-2">
+                                <select name="" id="class" class="form-control mt-2">
+                                    <option value="normal">Normal</option>
+                                    <option value="vip">VIP</option>
+                                </select>
+                                <input type="hidden" name="totalprice" id="totalprice" >
+                                <input type="submit" class="btn btn-primary mt-3" >
+                                </form>
+                               
+                    
+                            
+                            <br>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <b>Price Per Person</b>
+                                    <br>
+                                    <br>
+                                    <b>Total Price</b>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <b>$</b> <b id="price1">1500</b>
+                                    <br>
+                                    <br>
+                                    <b>$</b> <b class="text-muted" id="price">1500</b>
+                                </div>
+                            </div>
+                            <span class="text-muted">Taxes and service charges included</span>                         
+                        </div>
+              
+                </div>
+            </div>
+        </div>
+      
+    </div>
+</div>
+<div class="footer p-5">
+    <div class="container text-center ">
+    <span>
+        @Copyright FLY is part of Booking Flights Inc.,
+    </span>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

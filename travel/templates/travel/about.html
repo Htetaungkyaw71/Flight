@@ -1,0 +1,87 @@
+{% extends 'travel/layout.html' %}
+{% load static %}
+{% block body %}
+
+
+
+<div class="about">
+    <div class="container">
+        <h1>Confident travel starts at Travelagency.</h1>
+    </div>       
+</div>
+<div class="container p-5">
+    <div class="row">
+        <div class="col-md-10">
+            <h1 class="mb-5 mt-3 h">
+                Since 2004, KAYAK has been revolutionizing the travel industry. Metasearch for travel? No one was doing it. Until we did.
+            </h1>
+            <p class="text-muted">
+                Today, we process billions of queries across our platforms each year for travel information, helping millions of travelers around the globe make confident decisions. With every query, KAYAK searches hundreds of travel sites to show travelers the information they need to find the right flights, hotels, rental cars and vacation packages.
+            </p>
+            <p  class="text-muted">
+                In over a decade, we've grown from a small office of 14 employees into a company of over 1,000 travel-loving teammates working across 7 international brands; KAYAK, SWOODOO, checkfelix, momondo, Cheapflights, Mundi and HotelsCombined. <b>
+                    Together, we make it easier for everyone to experience the world.
+                </b> 
+            </p>
+            <p class="text-muted">
+                In 2013, we were acquired by Booking Holdings, the world leader in online travel
+            </p>
+                
+        </div>
+        <div class="col-md-2 text-center p-5 ">
+            <div class="di">
+
+            </div>
+            <div class="di">
+
+            </div>
+        </div>
+        
+    </div>
+  
+   
+</div>
+<div class="container">
+    <hr>
+</div>
+
+<div class="container p-5">  
+    <div class="members">
+        <h1 class="mb-5">This is our <span class="t" id="t">Team</span> </h1>
+        <br>
+        <div class="row p-3 mt-5 mb-5">
+            <div class="col-md-6 text-center col-lg-4">
+                <img src="{% static 'human1.jfif' %}" alt="" class="team">
+                <h5 class="mt-3 mb-3">David</h5>
+                <p class="text-muted">
+                    Web developer
+                </p>
+            </div>
+            <div class="col-md-6 text-center col-lg-4">
+                <img src="{% static 'human2.jfif' %}" alt="" class="team">
+                <h5 class="mt-3 mb-3">cassy</h5>
+                <p class="text-muted">
+                    Web Designer
+                </p>
+            </div>
+            <div class="col-md-6 text-center col-lg-4">
+                <img src="{% static 'human3.jfif' %}" alt="" class="team">
+                <h5 class="mt-3 mb-3">Jaden</h5>
+                <p class="text-muted">
+                    Full stack developer
+                </p>
+            </div>  
+        </div>
+     
+    </div>
+</div>
+
+<div class="footer p-5">
+    <div class="container text-center ">
+    <span>
+        @Copyright FLY is part of Booking Flights Inc.,
+    </span>
+    </div>
+</div>
+
+{% endblock %}

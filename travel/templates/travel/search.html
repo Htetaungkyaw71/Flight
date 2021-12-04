@@ -1,0 +1,105 @@
+{% extends 'travel/layout.html' %}
+{% block body %}
+
+
+
+
+
+<div class="header">
+    <div class="form">
+        <h1 class="text-center mb-3">
+            Find flight deals
+        </h1>
+        <form action="{% url 'search' %}" method="POST">
+            {% csrf_token %}
+            <input type="radio" name="tripType" value="oneway" id="oneway" checked>
+            <label class="form-check-label" for="exampleRadios1">
+                OneWay
+              </label>
+              <input type="radio" name="tripType" value="round" id="round">
+              <label class="form-check-label" for="exampleRadios1" >
+                  RoundTrip
+              </label> 
+       
+             
+            <div class="row">
+                <div class="col-md-5">                   
+                      <select name="cityfrom" id="" class="form-control mt-3">
+                        <option disabled selected>From?</option>
+                        {% for airport in airports %}
+                        <option value="{{airport.id}}">{{airport.city}}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="date" class="form-control  mt-3" name="departuredate">
+                </div>
+                <div class="col-md-2 ">
+                    <br>                 
+                    <i class="bi bi-signpost-2-fill  text-center"></i>
+                </div>
+                <div class="col-md-5">
+                      <select name="cityto" id="" class="form-control  mt-3">
+                        <option disabled selected>To?</option>
+                        {% for airport in airports %}
+                        <option value="{{airport.id}}">{{airport.city}}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="date" class="form-control  mt-3" id="todate" name="arrivaldate" disabled >
+                </div>
+            </div>
+            <input type="submit" class="btn btn-primary mt-3" value="Search">
+        </form>
+      
+        
+    </div>
+</div>
+<div class="main">
+    <h1 class="text-center mt-5">Current Flights</h1>
+    <div class="container">
+        <div class="card mt-5 mb-5 tablecard">
+            {% for flight in flights %}
+            <div class="card-body">    
+                    <div class="row">
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-2 mb-2">
+                            <b>{{flight.departuredate}}</b>
+                            <span class="text-muted tabletext">Qatar Airways</span>
+                        </div>
+                        <div class="col-md-2 mb-2">
+                            <b>1 stop</b>
+                            <span  class="text-muted tabletext">DOH</span>
+                        </div>
+                        <div class="col-md-2 mb-2">
+                            <b>{{flight.duration}} min</b>
+                            <span  class="text-muted tabletext">{{flight.cityfrom.code}}
+                                ‐ 
+                                {{flight.cityto.code}}</span>
+                        </div>
+                        <div class="col-md-2 mb-2">
+                            <b class="price">${{flight.price}}</b>
+                        </div>
+                        <div class="col-md-2 mb-2">
+                            <a class="btn btn-outline-primary" href="{% url 'detail' flight.id %}" >view detail</a>
+                        </div>
+                        <div class="col-md-1 mb-2">
+                        </div>
+                    </div>         
+            </div>
+            {% empty %}
+            <div class="card-body">
+                <h1>No Flights</h1>
+            </div>
+            {% endfor %}
+         
+        </div>
+    </div>
+</div>
+
+<div class="footer p-5">
+    <div class="container text-center ">
+    <span>
+        @Copyright FLY is part of Booking Flights Inc.,
+    </span>
+    </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,290 @@
+{% extends 'travel/layout.html' %}
+{% load static %}
+{% block body %}
+
+
+
+<div class="header">
+
+    <div class="form">
+        <h1 class="text-center mb-3">
+            Find flight deals
+        </h1>
+        <form action="{% url 'search' %}" method="post">
+            {% csrf_token %}
+            <input type="radio" name="tripType" value="oneway" id="oneway" checked>
+            <label class="form-check-label" for="exampleRadios1">
+                OneWay
+              </label>
+              <input type="radio" name="tripType" value="round" id="round">
+              <label class="form-check-label" for="exampleRadios1" >
+                  RoundTrip
+              </label> 
+       
+             
+            <div class="row">
+                <div class="col-md-5">                   
+                      <select name="cityfrom" id="" class="form-control mt-3">
+                        <option disabled selected>From?</option>
+                        {% for airport in airports %}
+                        <option value="{{airport.id}}">{{airport.city}}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="date" class="form-control  mt-3" name="departuredate">
+                </div>
+                <div class="col-md-2 ">
+                    <br>                 
+                    <i class="bi bi-signpost-2-fill  text-center"></i>
+                </div>
+                <div class="col-md-5">
+                      <select name="cityto" id="" class="form-control  mt-3">
+                        <option disabled selected>To?</option>
+                        {% for airport in airports %}
+                        <option value="{{airport.id}}">{{airport.city}}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="date" class="form-control  mt-3" id="todate" name="arrivaldate" disabled >
+                </div>
+            </div>
+            <input type="submit" class="btn btn-primary mt-3" value="Search">
+        </form>
+      
+        
+    </div> 
+  
+   
+</div>
+
+
+
+
+<div class="container main p-5">
+    <h1 class="text-center mb-5 mt-5">Unleash the traveler inside you
+        </h1>
+    <div class="row row-cols-1 row-cols-md-2 mt-5">
+        <div class="col-md-4 mb-4 mt-5" data-toggle="modal" data-target="#exampleModal1">
+          <div class="card">
+            <img src="{% static 'newyork.jpg' %}" class="card-img-top" alt="..." height="220px">
+            <div class="card-body">
+              <p class="card-text cardtext1">New York</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 mt-5" data-toggle="modal" data-target="#exampleModal2">
+            <div class="card">
+              <img src="{% static 'paris1.jpg' %}" class="card-img-top" height="220px">
+              <div class="card-body">
+                <p class="card-text cardtext1">Paris</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4 mt-5" data-toggle="modal" data-target="#exampleModal3">
+            <div class="card">
+              <img src="{% static 'london1.jpg' %}" class="card-img-top" height="220px">
+              <div class="card-body ">
+                <p class="card-text cardtext1">London</p>
+              </div>
+            </div>
+          </div>
+     
+    </div>
+  
+</div>
+
+
+<div class="footer p-5">
+  <div class="container text-center ">
+  <span>
+      @Copyright FLY is part of Booking Flights Inc.,
+  </span>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- modal groups -->
+
+<!-- yangon modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">New York</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body text-center">
+        <form action="{% url 'search' %}" method="POST">
+            {% csrf_token %}
+            <input type="radio" name="tripType" value="oneway" id="oneway" checked>
+            <label class="form-check-label" for="exampleRadios1">
+                OneWay
+              </label>
+              <input type="radio" name="tripType" value="round" id="round">
+              <label class="form-check-label" for="exampleRadios1" >
+                  RoundTrip
+              </label> 
+       
+             
+            <div class="row">
+                <div class="col-md-5">                   
+                      <select name="cityfrom" id="" class="form-control mt-3">
+                        <option disabled selected>From?</option>
+                        {% for airport in airports %}
+                        <option value="{{airport.id}}">{{airport.city}}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="date" class="form-control  mt-3" name="departuredate">
+                </div>
+                <div class="col-md-2 ">
+                    <br>                 
+                    <i class="bi bi-signpost-2-fill  text-center"></i>
+                </div>
+                <div class="col-md-5">
+                      <select name="cityto" id="" class="form-control  mt-3">  
+                   
+                    <option value="{{newyork.id}}" selected>{{newyork.city}}</option>
+                   
+                    </select>
+                    <input type="date" class="form-control  mt-3" id="todate" disabled>
+                </div>
+            </div>
+            <input type="submit" class="btn btn-primary mt-3" value="Search">
+        </form>
+    </div>
+  </div>
+</div>
+</div>
+<!-- yangon modal -->
+
+<!-- mandalay modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Paris</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body text-center">
+        <form action="{% url 'search' %}" method="post">
+            {% csrf_token %}
+            <input type="radio" name="tripType" value="oneway" id="oneway" checked>
+            <label class="form-check-label" for="exampleRadios1">
+                OneWay
+              </label>
+              <input type="radio" name="tripType" value="round" id="round">
+              <label class="form-check-label" for="exampleRadios1" >
+                  RoundTrip
+              </label> 
+       
+             
+            <div class="row">
+                <div class="col-md-5">                   
+                      <select name="cityfrom" id="" class="form-control mt-3">
+                        <option disabled selected>From?</option>
+                        {% for airport in airports %}
+                        <option value="{{airport.id}}">{{airport.city}}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="date" class="form-control  mt-3" name="departuredate">
+                </div>
+                <div class="col-md-2 ">
+                    <br>                 
+                    <i class="bi bi-signpost-2-fill  text-center"></i>
+                </div>
+                <div class="col-md-5">
+                      <select name="cityto" id="" class="form-control  mt-3">
+                        <option value="{{paris.id}}"  selected>{{paris.city}}</option>
+                    </select>
+                    <input type="date" class="form-control  mt-3" id="todate" disabled>
+                </div>
+            </div>
+            <input type="submit" class="btn btn-primary mt-3" value="Search">
+        </form>
+    </div>
+  </div>
+</div>
+</div>
+<!-- mandalay modal -->
+
+
+<!-- naypyitaw modal -->
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">London</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+            <form action="{% url 'search' %}" method="post">
+                {% csrf_token %}
+                <input type="radio" name="tripType" value="oneway" id="oneway" checked>
+                <label class="form-check-label" for="exampleRadios1">
+                    OneWay
+                  </label>
+                  <input type="radio" name="tripType" value="round" id="round">
+                  <label class="form-check-label" for="exampleRadios1" >
+                      RoundTrip
+                  </label> 
+           
+                 
+                <div class="row">
+                    <div class="col-md-5">                   
+                          <select name="cityfrom" id="" class="form-control mt-3">
+                            <option disabled selected>From?</option>
+                            {% for airport in airports %}
+                            <option value="{{airport.id}}">{{airport.city}}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="date" class="form-control  mt-3" name="departuredate">
+                    </div>
+                    <div class="col-md-2 ">
+                        <br>                 
+                        <i class="bi bi-signpost-2-fill  text-center"></i>
+                    </div>
+                    <div class="col-md-5">
+                          <select name="cityto" id="" class="form-control  mt-3">
+                            <option disabled selected>To?</option>
+                            <option value="{{london.id}}"  selected>{{london.city}}</option>               
+                        </select>
+                        <input type="date" class="form-control  mt-3" id="todate" disabled>
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-primary mt-3" value="Search">
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- naypyitaw modal -->
+
+<!-- modal groups -->
+
+{% endblock %}

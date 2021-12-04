@@ -1,0 +1,58 @@
+{% extends 'travel/layout.html' %}
+{% load static %}
+{% block body %}
+
+<div class="container mt-5">
+   <h1 class="text-center">Payment</h1>
+    <img src="http://creditcardimagelogos.com/wp-content/themes/e838pqefv3ejmkevzirye533556/files/logos/new/cdn_subdomain/credit_card_logos_10.gif" alt="Visa-Mastercard-Discover-Amex-336*50.gif" class="mt-5"/>
+    <!-- payment form -->
+    <form class="mb-5 mt-5" action="{% url 'payment' flight.id %}" method="post">
+      {% csrf_token %}
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputEmail4" style="color: blue;">Give a name for your card</label>
+            <input type="text" class="form-control" id="inputEmail4" name="cardname">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="exampleFormControlSelect1" style="color: blue;">Select Card Type</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="cardtype" >
+              <option value="visa">Visa</option>
+              <option value="paypal">Paypal</option>
+              <option value="pioneer">pioneer</option>
+              <option value="mastercard">mastercard</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputAddress" style="color: blue;">Card Holder Name</label>
+          <input type="text" class="form-control" id="inputAddress" placeholder="Card Holder Name" name="cardholder">
+        </div>
+        <div class="form-group">
+          <label for="inputAddress2" style="color: blue;">Card Number</label>
+          <input type="number" class="form-control" id="inputAddress2" placeholder="Valid Card Number" name="cardnumber">
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-10">
+            <label style="color: blue;">Expiration Date</label>
+            <input type="date" class="form-control" name="carddate">
+          </div>
+          <div class="form-group col-md-2">
+            <label for="inputZip" style="color: blue;">CV Code</label>
+            <input type="number" class="form-control" id="inputZip" name="cardcode">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Book</button>
+      </form>
+
+</div>
+
+<div class="footer p-5">
+  <div class="container text-center ">
+  <span>
+      @Copyright FLY is part of Booking Flights Inc.,
+  </span>
+  </div>
+  </div>
+
+
+{% endblock %}
