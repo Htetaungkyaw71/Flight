@@ -4,12 +4,12 @@ This is Flight Booking website
 
 # How to run program
 
-pip freeze 
-copy all requirements and create requirements.txt and paste it
-pip install requirements.txt
-python manage.py makemigrations
-python manage.py migrate
-python manage.py runserver
+* pip freeze 
+* copy all requirements and create requirements.txt and paste it
+* pip install requirements.txt
+* python manage.py makemigrations
+* python manage.py migrate
+* python manage.py runserver
 
 
 # About
@@ -21,9 +21,9 @@ User can create alert price for flights
 
 # Language and tools
 
-Html
-Css
-Javascript
-Bootstrap
-python 
-Django
+* Html
+* Css
+* Javascript
+* Bootstrap
+* python 
+* Django
